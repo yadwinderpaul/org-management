@@ -51,17 +51,17 @@ class Organizations():
         self._logger.info('Succesfully deleted organization')
         return True
 
-    def search(self, query, lat=None, lng=None, start=0):
+    def search(self, query, user_lat=None, user_lng=None, start=0):
         if not query:
             raise InvalidInputException(message='"query": is required')
-        if lat:
-            lat = float(lat)
-        if lng:
-            lng = float(lng)
+        if user_lat:
+            user_lat = float(user_lat)
+        if user_lng:
+            user_lng = float(user_lng)
         self._logger.info(f'Searching organization: {query}')
         orgs = self._adapter.search_organizations(query,
-                                                  lat=lat,
-                                                  lng=lng,
+                                                  user_lat=user_lat,
+                                                  user_lng=user_lng,
                                                   start=start)
         self._logger.info('Succesfully searched organizations')
         return orgs

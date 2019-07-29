@@ -111,16 +111,16 @@ def delete(id):
 
 @click.command()
 @click.option('--query', type=click.STRING, required=True)
-@click.option('--lat', type=click.FLOAT)
-@click.option('--lng', type=click.FLOAT)
+@click.option('--user_lat', type=click.FLOAT)
+@click.option('--user_lng', type=click.FLOAT)
 @click.option('--start',
               type=click.INT,
               default=0)
 @handle_organizations_exceptions
-def search(query, lat, lng, start):
+def search(query, user_lat, user_lng, start):
     res = app['organizations'].search(query,
-                                      lat=lat,
-                                      lng=lng,
+                                      user_lat=user_lat,
+                                      user_lng=user_lng,
                                       start=start)
     print(res)
 

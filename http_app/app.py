@@ -62,11 +62,11 @@ def search():
     if request.method == 'GET':
         query = request.args.get('query')
         start = request.args.get('start', None)
-        lat = request.args.get('lat', None)
-        lng = request.args.get('lng', None)
+        user_lat = request.args.get('user_lat', None)
+        user_lng = request.args.get('user_lng', None)
         payload, meta = ctrl.search_organizations(query,
-                                                  lat=lat,
-                                                  lng=lng,
+                                                  user_lat=user_lat,
+                                                  user_lng=user_lng,
                                                   start=start)
         return success_response(payload=payload, meta=meta)
 

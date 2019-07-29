@@ -56,6 +56,6 @@ class Controller():
         self._service.delete(id)
 
     @handle_organizations_exceptions
-    def search_organizations(self, query, lat, lng, start):
-        result = self._service.search(query, lat, lng, start)
+    def search_organizations(self, query, user_lat, user_lng, start):
+        result = self._service.search(query, user_lat, user_lng, start)
         return result['data'], result['meta']

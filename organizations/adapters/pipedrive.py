@@ -92,7 +92,7 @@ class PipedriveAdapter(BaseAdapter):
         return True
 
     @handle_pipedrive_exceptions
-    def search_organizations(self, query, lat, lng, start):
+    def search_organizations(self, query, user_lat, user_lng, start):
         params = {
             'term': query,
             'start': start,
@@ -105,9 +105,11 @@ class PipedriveAdapter(BaseAdapter):
         payload = result.json()
         collection = self._parse_collection(payload)
         if collection['data'] is not None and\
-                lat is not None and lng is not None:
+                user_lat is not None and user_lng is not None:
             collection['data'] =\
-                self._sort_by_coordinates(collection['data'], lat, lng)
+                self._sort_by_coordinates(collection['data'],
+                                          user_lat,
+                                          user_lng)
         return collection
 
     def _serialize_record(self, details):
@@ -172,11 +174,11 @@ class PipedriveAdapter(BaseAdapter):
             'meta': meta
         }
 
-    def _sort_by_coordinates(self, records, lat, lng):
+    def _sort_by_coordinates(self, records, user_lat, user_lng):
         def sorter(elem):
             dist = 0
             if elem['lat'] and elem['lng']:
-                dist = haversine((lat, lng),
+                dist = haversine((user_lat, user_lng),
                                  (elem['lat'], elem['lng']))
             return dist
         sorted_records = records.copy()
